@@ -1,0 +1,15 @@
+FROM node:18-slim
+
+# Install the MCP server globally
+RUN npm install -g @gongrzhe/server-redis-mcp
+
+# Copy the clean index.js
+COPY mcp-index.js /usr/local/lib/node_modules/@gongrzhe/server-redis-mcp/build/index.js
+
+# Create a wrapper script that runs from the package directory
+RUN echo '#!/bin/sh' > /usr/local/bin/mcp-server && \
+    echo 'cd /usr/local/lib/node_modules/@gongrzhe/server-redis-mcp && node build/index.js "$@"' >> /usr/local/bin/mcp-server && \
+    chmod +x /usr/local/bin/mcp-server
+
+# Keep container running
+CMD ["tail", "-f", "/dev/null"]

@@ -1,0 +1,7 @@
+redis
+pyserial
+python-dotenv
+fastapi
+uvicorn
+pyspark
+google-generativeai
